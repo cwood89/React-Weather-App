@@ -4,12 +4,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import logo from "../images/logo512.png";
 
 export default function Weather() {
   
-  const [temp, setTemp] = useState("0 \xB0");
-  const [city, setCity] = useState("City");
-  const [description, setDescription] = useState("Description");
+  const [temp, setTemp] = useState("");
+  const [city, setCity] = useState("");
+  const [description, setDescription] = useState("");
   const [time, setTime] = useState("0:00");
   const [img, setImg] = useState();
   const [showForm, setShowForm] = useState(false);
@@ -70,7 +71,10 @@ export default function Weather() {
   const toggleForm = () => {
     if (showForm === false) {
       return (
-        <Button variant="primary" onClick={() => setShowForm(true)}>Pick a location!</Button>)
+        <Row className="justify-content-md-center">
+          <Button variant="primary" onClick={() => setShowForm(true)}>Pick a location!</Button>
+        </Row>
+      )
     } else {
       return (
         <Row className="justify-content-md-center">
@@ -95,11 +99,15 @@ export default function Weather() {
   return (
     
     <div className=" text-uppercase text-white text-center px-4">
-      {img ? <img src={imgURL} alt={description} /> : null}
-      <h1 className="header">{temp}</h1>
-      <p>{description}</p>
-      <p>{city}</p>
-      <p>{time}</p>
+      {temp ? (
+        <>
+          <img src={imgURL} alt={description} /> 
+          <h1 className="header">{temp}</h1>
+          <p>{description}</p>
+          <p>{city}</p>
+          <p>{time}</p>
+        </>
+      ) : <img src={logo} height="250px" alt="the weather app logo" />}
       {toggleForm()}
     </div>
   )
