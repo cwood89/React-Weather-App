@@ -20,7 +20,10 @@ export default function Weather() {
 
   useEffect(() => {
     const getLocation = async () => {
-      const { coords } = await getCurrentPosition().catch(e => console.log("Error: ", e.message));
+      const { coords } = await getCurrentPosition() || {}.catch(e => console.log("Error: ", e.message));
+      if (coords === undefined) {
+        return
+      }
       const { latitude, longitude } = coords;
   
       let api_call = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`).catch(e => console.log("Error: ", e.message));
@@ -92,7 +95,7 @@ export default function Weather() {
   return (
     
     <div className=" text-uppercase text-white text-center px-4">
-      {img? <img src={imgURL} alt={description} /> : null}
+      {img ? <img src={imgURL} alt={description} /> : null}
       <h1 className="header">{temp}</h1>
       <p>{description}</p>
       <p>{city}</p>
