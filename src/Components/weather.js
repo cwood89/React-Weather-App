@@ -31,7 +31,7 @@ export default function Weather() {
        
       let data = await api_call.json();
 
-      if (data.cod === "404") {
+      if (data.cod === "404" || data.cod === "400" ) {
         return
       } else {
         setImg(data.weather[0].icon);
@@ -72,7 +72,9 @@ export default function Weather() {
     if (showForm === false) {
       return (
         <Row className="justify-content-md-center">
-          <Button variant="primary" onClick={() => setShowForm(true)}>Pick a location!</Button>
+          <Col md={4}>
+            <Button variant="primary" onClick={() => setShowForm(true)}>Pick a location!</Button>
+          </Col>
         </Row>
       )
     } else {
