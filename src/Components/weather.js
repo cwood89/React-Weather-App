@@ -15,7 +15,7 @@ export default function Weather() {
   const [showForm, setShowForm] = useState(false);
   const [zip, setZip] = useState('');
 
-  const imgURL = `http://openweathermap.org/img/wn/${img}@2x.png`;
+  const imgURL = `https://openweathermap.org/img/wn/${img}@2x.png`;
   const API_KEY = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
