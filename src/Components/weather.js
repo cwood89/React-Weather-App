@@ -26,13 +26,16 @@ export default function Weather() {
       let api_call = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`).catch(e => console.log("Error: ", e.message));
        
       let data = await api_call.json();
-    
-      setImg(data.weather[0].icon);
-      setTemp(formatTemp(data.main.temp));
-      setCity(data.name);
-      setDescription(data.weather[0].description);
-      setTime(getTime(data.timezone));
-     
+
+      if (data.cod === "404") {
+        return
+      } else {
+        setImg(data.weather[0].icon);
+        setTemp(formatTemp(data.main.temp));
+        setCity(data.name);
+        setDescription(data.weather[0].description);
+        setTime(getTime(data.timezone));
+      }
     }
     getLocation();
   }, [API_KEY]) // will only re-run if api key changes
@@ -41,19 +44,24 @@ export default function Weather() {
     let api_call = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${API_KEY}`).catch(e => console.log("Error: ", e.message));
        
     let data = await api_call.json();
-
-    setTemp(formatTemp(data.main.temp));
-    setImg(data.weather[0].icon);
-    setCity(data.name);
-    setDescription(data.weather[0].description);
-    setTime(getTime(data.timezone));
+    console.log(data)
+    if (data.cod === "404") {
+      return
+    } else {
+      setTemp(formatTemp(data.main.temp));
+      setImg(data.weather[0].icon);
+      setCity(data.name);
+      setDescription(data.weather[0].description);
+      setTime(getTime(data.timezone));
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     zipLocation(zip);
     setShowForm(false);
-
+    e.target.reset();
+    setZip('')
   }
 
   const toggleForm = () => {
