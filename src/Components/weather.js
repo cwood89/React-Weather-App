@@ -92,7 +92,7 @@ export default function Weather() {
   return (
     
     <div className=" text-uppercase text-white text-center px-4">
-      <img src={imgURL} alt={description}/>
+      {img? <img src={imgURL} alt={description} /> : null}
       <h1 className="header">{temp}</h1>
       <p>{description}</p>
       <p>{city}</p>
