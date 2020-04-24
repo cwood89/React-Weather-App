@@ -48,7 +48,7 @@ export default function Weather() {
        
     let data = await api_call.json();
     console.log(data)
-    if (data.cod === "404") {
+    if (data.cod === "404" || data.cod === "400") {
       return
     } else {
       setTemp(formatTemp(data.main.temp));
